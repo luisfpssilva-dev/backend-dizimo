@@ -5,17 +5,19 @@ from src.services.clients_service import get_all_clients, get_client_by_id, crea
 class ClientResource(Resource):
     def get(self, client_id=None):
         if client_id:
-            return jsonify(get_client_by_id(client_id))
+            return get_client_by_id(client_id)
         else:
-            return jsonify(get_all_clients())
+            return get_all_clients()
     
     def post(self):
         data = request.get_json()
-        return jsonify(create_client(data)), 201
+        new_client = create_client(data)
+        return new_client, 201
     
     def put(self, client_id):
         data = request.get_json()
-        return jsonify(update_client(client_id, data))
+        updated_client = update_client(client_id, data)
+        return updated_client
     
     def delete(self, client_id):
         delete_client(client_id)

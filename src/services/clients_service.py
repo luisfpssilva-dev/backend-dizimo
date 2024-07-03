@@ -10,9 +10,9 @@ def get_client_by_id(client_id):
 
 def create_client(data):
     new_client = Client(
-        name=data['nome'],
+        nome=data['nome'],
         email=data['email'],
-        phone=data['telefone']
+        telefone=data['telefone']
     )
     db.session.add(new_client)
     db.session.commit()
@@ -20,9 +20,9 @@ def create_client(data):
 
 def update_client(client_id, data):
     client = Client.query.get_or_404(client_id)
-    client.name = data['nome']
+    client.nome = data['nome']
     client.email = data['email']
-    client.phone = data['telefone']
+    client.telefone = data['telefone']
     db.session.commit()
     return client.to_dict()
 

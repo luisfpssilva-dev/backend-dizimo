@@ -1,7 +1,7 @@
 from src.db import db
 
 class Client(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     nome = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     telefone = db.Column(db.String(20), nullable=False)
@@ -11,5 +11,5 @@ class Client(db.Model):
             'id': self.id,
             'nome': self.nome,
             'email': self.email,
-            'telefone': self.phone
+            'telefone': self.telefone
         }

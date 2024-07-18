@@ -9,6 +9,7 @@ class TitularModel(Base):
     titular_id = db.Column(db.String(32), primary_key=True, default=generate_uuid)
     numero_dizimista = db.Column(db.Integer, nullable= False)
     nome = db.Column(db.String(80), nullable=False)
+    sexo = db.Column(db.String(32), nullable=False)
     data_nascimento = db.Column(db.DateTime, nullable=False)
     cpf = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
@@ -27,6 +28,7 @@ class TitularModel(Base):
             'titular_id': self.titular_id,
             'numero_dizimista': self.numero_dizimista,
             'nome': self.nome,
+            'sexo': self.sexo,
             'data_nascimento': self.data_nascimento,
             'cpf': self.cpf,
             'email': self.email,
@@ -65,6 +67,31 @@ class EnderecoModel(Base):
             'bairro': self.bairro,
             'cidade': self.cidade,
             'complemento': self.complemento,
+            'updated_at': self.updated_at,
+            'titular_relation': self.titular_relation
+        }
+
+
+class DependenteModel(Base):
+    __tablename__ = 'dependente'
+    dependente_id = db.Column(db.String(32), primary_key=True, default=generate_uuid)
+    nome = db.Column(db.String(32), nullable=False)
+    sexo = db.Column(db.String(32), nullable=False)
+    titular_id = db.Column(db.String(32), db.ForeignKey('titular.titular_id'))
+    tipo_dependente = db.Column(db.String(32), nullable=False)
+    updated_at = db.Column(db.DateTime,
+                           default=datetime.now,
+                           onupdate=datetime.now)
+    titular_relation = db.relationship('TitularModel')
+
+    
+    def to_dict(self):
+        return {
+            'dependente_id': self.dependente_id,
+            'nome': self.nome,
+            'sexo': self.sexo,
+            'titular_id': self.titular_id,
+            'tipo_dependente': self.tipo_dependente,
             'updated_at': self.updated_at,
             'titular_relation': self.titular_relation
         }

@@ -19,8 +19,10 @@ db.init_app(app)
 
 api = Api(app)
 
-from src.routes.clients_routes import initialize_routes
-initialize_routes(api)
+from routes.titular_routes import initialize_routes_titular
+from routes.comunidade_route import initialize_routes_comunidade
+initialize_routes_comunidade(api)
+initialize_routes_titular(api)
 
 with app.app_context():
     db.create_all()

@@ -6,3 +6,4 @@ python-dotenv==0.19.2
 SQLAlchemy==1.4.31
 alembic==1.13.2
 psycopg2==2.9.9
+flask_jwt_extended

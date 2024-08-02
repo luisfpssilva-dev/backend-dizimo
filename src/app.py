@@ -25,10 +25,12 @@ from routes.titular_routes import initialize_routes_titular
 from routes.comunidade_route import initialize_routes_comunidade
 from routes.user_route import initialize_user_routes
 from src.routes.protected_route import initialize_protected_routes
+from src.routes.payment_routes import initialize_payment_routes
 initialize_protected_routes(api)
 initialize_routes_comunidade(api)
 initialize_routes_titular(api)
 initialize_user_routes(api)
+initialize_payment_routes(api)
 
 with app.app_context():
     db.create_all()

@@ -1,4 +1,4 @@
-from models.titular_model import TitularModel as Titular
+from models import TitularModel as Titular
 from src.db import db
 
 def get_all_clients():

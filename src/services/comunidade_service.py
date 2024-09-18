@@ -1,4 +1,4 @@
-from models.comunidade_model import ComunidadeModel as Comunidade
+from src.models import ComunidadeModel as Comunidade
 from src.db import db
 
 def get_all_comunidades():

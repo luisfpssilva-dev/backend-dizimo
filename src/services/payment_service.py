@@ -1,6 +1,4 @@
-from src.models.pagamento_model import Payment
-from src.models.titular_model import TitularModel
-from src.models.usuario_model import User
+from src.models import User, TitularModel, Payment
 from src.db import db
 
 def get_all_payments():
@@ -14,6 +12,7 @@ def get_payment_by_id(payment_id):
         return None
 
 def create_payment(data):
+    pass
     client = TitularModel.query.get(data['client_id'])
     user = User.query.get(data['user_id'])
     if not client or not user:

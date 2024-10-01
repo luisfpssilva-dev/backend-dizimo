@@ -8,10 +8,20 @@ class TitularModel(db.Model):
     __table_args__ = {'extend_existing': True}
 
     titular_id = db.Column(db.String(32), primary_key=True)
+    numero_dizimista = db.Column(db.Integer, nullable= False)
     name = db.Column(db.String(80), nullable=False)
-    comunidade_id = db.Column(db.String(32), db.ForeignKey('comunidade.comunidade_id'), nullable=False)
+    sexo = db.Column(db.String(32), nullable=False)
+    data_nascimento = db.Column(db.DateTime, nullable=False)
+    cpf = db.Column(db.String(80), nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    telefone = db.Column(db.String(20), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.now)
+    updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
+    deleted_at = db.Column(db.DateTime)
+    comunidade_id = db.Column(db.String(32), db.ForeignKey('comunidade.comunidade_id'), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-
+    endereco = db.relationship('EnderecoModel', backref='titular')
+    dependente = db.relationship('DependenteModel', backref='titular')
     user = db.relationship('User', back_populates='titulares')
     comunidade_relation = db.relationship('ComunidadeModel', back_populates='titulares')
     payments = db.relationship('Payment', back_populates='titular', lazy=True)
@@ -40,7 +50,6 @@ class EnderecoModel(db.Model):
     complemento = db.Column(db.String(32), nullable=False)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
-    titular_relation = db.relationship('TitularModel', back_populates='enderecos')
 
     def to_dict(self):
         return {
@@ -62,18 +71,17 @@ class DependenteModel(db.Model):
     __table_args__ = {'extend_existing': True}
 
     dependente_id = db.Column(db.String(32), primary_key=True, default=generate_uuid)
-    nome = db.Column(db.String(32), nullable=False)
+    name = db.Column(db.String(32), nullable=False)
     sexo = db.Column(db.String(32), nullable=False)
     titular_id = db.Column(db.String(32), db.ForeignKey('titular.titular_id'))
     tipo_dependente = db.Column(db.String(32), nullable=False)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
-    titular_relation = db.relationship('TitularModel', back_populates='dependentes')
 
     def to_dict(self):
         return {
             'dependente_id': self.dependente_id,
-            'nome': self.nome,
+            'name': self.name,
             'sexo': self.sexo,
             'titular_id': self.titular_id,
             'tipo_dependente': self.tipo_dependente,

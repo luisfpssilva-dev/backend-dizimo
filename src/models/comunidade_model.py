@@ -10,8 +10,7 @@ class ComunidadeModel(db.Model):
     nome = db.Column(db.String(80), nullable=False)
     updated_at = db.Column(db.DateTime, default=datetime.now)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    users = db.relationship('User', back_populates='comunidade', lazy=True)
-    titulares = db.relationship('TitularModel', back_populates='comunidade_relation', lazy=True)
+    titulares = db.relationship('TitularModel', backref='comunidade_relation')
 
     def to_dict(self):
         return {

@@ -12,9 +12,6 @@ class Payment(db.Model):
     titular_id = db.Column(db.String(32), db.ForeignKey('titular.titular_id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
-    titular = db.relationship('TitularModel', back_populates='payments')
-    user = db.relationship('User', back_populates='payments')
-
     def to_dict(self):
         return {
             'id': self.id,

@@ -22,9 +22,7 @@ class TitularModel(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     endereco = db.relationship('EnderecoModel', backref='titular')
     dependente = db.relationship('DependenteModel', backref='titular')
-    user = db.relationship('User', back_populates='titulares')
-    comunidade_relation = db.relationship('ComunidadeModel', back_populates='titulares')
-    payments = db.relationship('Payment', back_populates='titular', lazy=True)
+    payments = db.relationship('Payment', backref='titular')
 
     def to_dict(self):
         return {

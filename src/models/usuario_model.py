@@ -9,9 +9,9 @@ class User(db.Model):
     username = db.Column(db.String(80), unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
 
-    titulares = db.relationship('TitularModel', back_populates='user', lazy=True)
-    payments = db.relationship('Payment', back_populates='user', lazy=True)
-    comunidade = db.relationship('ComunidadeModel', back_populates='users', lazy=True)
+    titulares = db.relationship('TitularModel', backref='user')
+    payments = db.relationship('Payment', backref='user')
+    comunidade = db.relationship('ComunidadeModel', backref='users')
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)

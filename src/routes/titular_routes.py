@@ -1,6 +1,7 @@
 from flask import request, jsonify
 from flask_restful import Resource
-from services.titular_service import get_all_clients, get_client_by_id, create_titular, update_client, delete_client
+from src.services.titular_service import get_all_clients, get_client_by_id, create_titular, update_client, delete_client
+
 
 class TitularResource(Resource):
     def get(self, titular_id=None):

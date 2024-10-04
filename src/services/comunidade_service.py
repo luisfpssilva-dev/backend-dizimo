@@ -10,7 +10,8 @@ def get_comunidade_by_id(comunidade_id):
 
 def create_comunidade(data):
     new_comunidade = Comunidade(
-        nome=data['nome']
+        nome = data['nome'],
+        user_id = data['user_id']
     )
     db.session.add(new_comunidade)
     db.session.commit()

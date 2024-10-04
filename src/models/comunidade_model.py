@@ -16,5 +16,5 @@ class ComunidadeModel(db.Model):
         return {
             'comunidade_id': self.comunidade_id,
             'nome': self.nome,
-            'updated_at': self.updated_at
+            'updated_at': self.updated_at.strftime("%m/%d/%Y, %H:%M:%S")
         }

@@ -3,16 +3,16 @@ from flask_restful import Resource
 from src.services.comunidade_service import get_all_comunidades, get_comunidade_by_id, create_comunidade, update_comunidade, delete_comunidade
 
 class ComunidadeResource(Resource):
-    def get(self, client_id=None):
-        if client_id:
-            return get_comunidade_by_id(client_id)
+    def get(self, comunidade_id=None):
+        if comunidade_id:
+            return get_comunidade_by_id(comunidade_id)
         else:
             return get_all_comunidades()
     
     def post(self):
         data = request.get_json()
-        new_client = create_comunidade(data)
-        return new_client, 201
+        new_client, status_code = create_comunidade(data)
+        return new_client, status_code
     
     def put(self, client_id):
         data = request.get_json()

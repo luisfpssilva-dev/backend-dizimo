@@ -11,17 +11,18 @@ class ComunidadeResource(Resource):
     
     def post(self):
         data = request.get_json()
-        new_client, status_code = create_comunidade(data)
-        return new_client, status_code
+        new_comunidade, status_code = create_comunidade(data)
+        return new_comunidade, status_code
     
-    def put(self, client_id):
+    def put(self, comunidade_id):
         data = request.get_json()
-        updated_client = update_comunidade(client_id, data)
+        updated_client = update_comunidade(comunidade_id, data)
         return updated_client
     
-    def delete(self, client_id):
-        delete_comunidade(client_id)
-        return '', 204
+    def delete(self, comunidade_id):
+        delete_result, status_code = delete_comunidade(comunidade_id)
+        print(delete_result, status_code)
+        return delete_result, status_code
 
 def initialize_routes_comunidade(api):
     api.add_resource(ComunidadeResource, '/comunidade', '/comunidade/<string:comunidade_id>')

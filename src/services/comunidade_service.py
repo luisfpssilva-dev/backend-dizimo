@@ -34,8 +34,6 @@ def create_comunidade(data):
 def update_comunidade(comunidade_id, data):
     comunidade = Comunidade.query.get_or_404(comunidade_id)
     comunidade.nome = data['nome']
-    comunidade.email = data['email']
-    comunidade.telefone = data['telefone']
     db.session.commit()
     return comunidade.to_dict()
 
@@ -43,4 +41,4 @@ def delete_comunidade(comunidade_id):
     comunidade = Comunidade.query.get_or_404(comunidade_id)
     db.session.delete(comunidade)
     db.session.commit()
-    return '', 204
+    return {'Message': 'Comunidade removida com sucesso!'}, 200

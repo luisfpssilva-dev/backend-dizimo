@@ -38,7 +38,10 @@ def update_comunidade(comunidade_id, data):
     return comunidade.to_dict()
 
 def delete_comunidade(comunidade_id):
-    comunidade = Comunidade.query.get_or_404(comunidade_id)
-    db.session.delete(comunidade)
-    db.session.commit()
-    return {'Message': 'Comunidade removida com sucesso!'}, 200
+    comunidade = Comunidade.query.filter_by(comunidade_id=comunidade_id).first()
+    if comunidade is not None:
+        db.session.delete(comunidade)
+        db.session.commit()
+        return {'Message': 'Comunidade removida com sucesso!'}, 200
+    else:
+        return {'Message': 'Comunidade não encontrada!'}, 404

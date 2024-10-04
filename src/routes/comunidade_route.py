@@ -1,6 +1,6 @@
 from flask import request, jsonify
 from flask_restful import Resource
-from services.comunidade_service import get_all_comunidades, get_comunidade_by_id, create_comunidade, update_comunidade, delete_comunidade
+from src.services.comunidade_service import get_all_comunidades, get_comunidade_by_id, create_comunidade, update_comunidade, delete_comunidade
 
 class ComunidadeResource(Resource):
     def get(self, client_id=None):

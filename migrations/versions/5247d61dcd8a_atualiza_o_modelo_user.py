@@ -22,6 +22,8 @@ def upgrade():
     sa.Column('comunidade_id', sa.String(length=32), nullable=False),
     sa.Column('nome', sa.String(length=80), nullable=False),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('comunidade_id')
     )
     op.create_table('users',
@@ -29,7 +31,6 @@ def upgrade():
     sa.Column('username', sa.String(length=80), nullable=False),
     sa.Column('password_hash', sa.String(length=128), nullable=False),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('username'),
     sa.UniqueConstraint('username')
     )
     op.create_table('titular',
@@ -44,7 +45,7 @@ def upgrade():
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.Column('deleted_at', sa.DateTime(), nullable=True),
-    sa.Column('user_id', sa.String(length=32), nullable=True),
+    sa.Column('user_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.Column('comunidade_id', sa.String(length=32), nullable=True),
     sa.ForeignKeyConstraint(['comunidade_id'], ['comunidade.comunidade_id'], ),

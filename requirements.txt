@@ -8,3 +8,4 @@ alembic==1.13.2
 psycopg2==2.9.9
 flask_jwt_extended==4.6.0
 Flask-Cors==5.0.0
+Flask-Migrate==4.0.7

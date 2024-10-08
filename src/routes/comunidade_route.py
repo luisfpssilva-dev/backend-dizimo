@@ -21,7 +21,6 @@ class ComunidadeResource(Resource):
     
     def delete(self, comunidade_id):
         delete_result, status_code = delete_comunidade(comunidade_id)
-        print(delete_result, status_code)
         return delete_result, status_code
 
 def initialize_routes_comunidade(api):

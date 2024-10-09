@@ -1,5 +1,7 @@
 from src.models import User, TitularModel, Payment
 from src.db import db
+import uuid
+
 
 def get_all_payments():
     return [payment.to_dict() for payment in Payment.query.all()]
@@ -12,18 +14,22 @@ def get_payment_by_id(payment_id):
         return None
 
 def create_payment(data):
-    pass
-    client = TitularModel.query.get(data['client_id'])
+    client = TitularModel.query.get(data['titular_id'])
+    print(client)
     user = User.query.get(data['user_id'])
+    print(user)
     if not client or not user:
         raise ValueError('Client or User not found')
+    
 
     payment = Payment(
+        id_payment = str(uuid.uuid4()),
         amount=data['amount'],
-        description=data.get('description'),
-        client_id=data['client_id'],
-        user_id=data['user_id']
-    )
+        titular_id=data['titular_id'],
+        user_id=data['user_id'],
+        description=data['description']    )
+
+    print(payment)
     db.session.add(payment)
     db.session.commit()
     return payment.to_dict()

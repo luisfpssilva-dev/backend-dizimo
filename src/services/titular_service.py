@@ -1,5 +1,7 @@
 from src.models import TitularModel as Titular
+from datetime import datetime
 from src.db import db
+import uuid
 
 def get_all_clients():
     return [client.to_dict() for client in Titular.query.all()]
@@ -10,14 +12,16 @@ def get_client_by_id(titular_id):
 
 def create_titular(data):
     new_titular = Titular(
+        titular_id = str(uuid.uuid4()),
         numero_dizimista=data['numero_dizimista'],
-        nome=data['nome'],
+        name=data['nome'],
         telefone=data['telefone'],
         sexo=data['sexo'],
-        data_nascimento=data['data_nascimento'],
+        data_nascimento=datetime.strptime(data['data_nascimento'], '%Y-%m-%d %H:%M:%S'),
         cpf=data['cpf'],
         email=data['email'],
-        comunidade_id=data['comunidade_id']
+        comunidade_id=data['comunidade_id'],
+        user_id = data['user_id']
     )
     db.session.add(new_titular)
     db.session.commit()

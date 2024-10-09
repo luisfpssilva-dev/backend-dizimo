@@ -3,6 +3,7 @@ from src.db import db
 from src.utils.utils import generate_uuid
 
 
+
 class TitularModel(db.Model):
     __tablename__ = 'titular'
     __table_args__ = {'extend_existing': True}
@@ -27,7 +28,16 @@ class TitularModel(db.Model):
     def to_dict(self):
         return {
             'titular_id': self.titular_id,
+            'numero_dizimista': self.numero_dizimista,
             'name': self.name,
+            'sexo': self.sexo,
+            'data_nascimento': self.data_nascimento.strftime('%Y-%m-%d %H:%M:%S'),
+            'cpf': self.cpf,
+            'email': self.email,
+            'telefone': self.telefone,
+            'created_at': self.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+            'updated_at': self.updated_at.strftime('%Y-%m-%d %H:%M:%S'),
+            'deleted_at': self.deleted_at.strftime('%Y-%m-%d %H:%M:%S') if self.deleted_at else None,
             'comunidade_id': self.comunidade_id,
             'user_id': self.user_id
         }

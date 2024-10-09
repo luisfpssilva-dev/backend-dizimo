@@ -17,9 +17,11 @@ class PaymentResource(Resource):
         data = request.get_json()
         try:
             new_payment = create_payment(data)
-            return jsonify(new_payment), 201
+            return new_payment, 201
         except ValueError as e:
-            return jsonify({'message': str(e)}), 400
+            return {"message": str(e)}, 400
+        except Exception as e:
+            return {"message": "Erro interno do servidor"}, 500
 
     def put(self, payment_id):
         data = request.get_json()

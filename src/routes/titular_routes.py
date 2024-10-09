@@ -6,9 +6,14 @@ from src.services.titular_service import get_all_clients, get_client_by_id, crea
 class TitularResource(Resource):
     def get(self, titular_id=None):
         if titular_id:
-            return get_client_by_id(titular_id)
+            client = get_client_by_id(titular_id)
+            if client:
+                return client, 200
+            else:
+                return {"message": "Titular não encontrado"}, 404
         else:
-            return get_all_clients()
+            clients = get_all_clients()
+            return clients, 200
     
     def post(self):
         data = request.get_json()

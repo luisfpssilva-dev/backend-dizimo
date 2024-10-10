@@ -12,7 +12,7 @@ class TitularModel(db.Model):
     numero_dizimista = db.Column(db.Integer, nullable= False)
     name = db.Column(db.String(80), nullable=False)
     sexo = db.Column(db.String(32), nullable=False)
-    data_nascimento = db.Column(db.DateTime, nullable=False)
+    data_nascimento = db.Column(db.Date, nullable=False)
     cpf = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     telefone = db.Column(db.String(20), nullable=False)
@@ -31,7 +31,7 @@ class TitularModel(db.Model):
             'numero_dizimista': self.numero_dizimista,
             'name': self.name,
             'sexo': self.sexo,
-            'data_nascimento': self.data_nascimento.strftime('%Y-%m-%d %H:%M:%S'),
+            'data_nascimento': self.data_nascimento.strftime('%Y-%m-%d'),
             'cpf': self.cpf,
             'email': self.email,
             'telefone': self.telefone,

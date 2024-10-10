@@ -30,7 +30,7 @@ def create_titular(data):
         name=data['nome'],
         telefone=data['telefone'],
         sexo=data['sexo'],
-        data_nascimento=datetime.strptime(data['data_nascimento'], '%Y-%m-%d %H:%M:%S'),
+        data_nascimento = datetime.strptime(data['data_nascimento'], '%Y-%m-%d').date(),
         cpf=data['cpf'],
         email=data['email'],
         comunidade_id=data['comunidade_id'],

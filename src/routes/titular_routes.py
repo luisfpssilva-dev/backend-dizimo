@@ -1,6 +1,8 @@
 from flask import request, jsonify
 from flask_restful import Resource
 from src.services.titular_service import get_all_clients, get_client_by_id, create_titular, update_client, delete_client
+from src.models import TitularModel
+from src.db import db
 
 
 class TitularResource(Resource):
@@ -31,3 +33,4 @@ class TitularResource(Resource):
 
 def initialize_routes_titular(api):
     api.add_resource(TitularResource, '/titular', '/titular/<string:titular_id>')
+    

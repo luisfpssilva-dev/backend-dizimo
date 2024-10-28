@@ -8,11 +8,22 @@ def get_all_clients():
     return [client.to_dict() for client in Titular.query.all()]
 
 
+# def get_client_by_id(titular_id):
+#     client = Titular.query.get_or_404(titular_id)
+#     return client.to_dict()
+
 def get_client_by_id(titular_id):
-    client = Titular.query.get_or_404(titular_id)
-    return client.to_dict()
+    # Consulta o titular pelo ID
+    titular = db.session.query(Titular).filter_by(titular_id=titular_id).first()
+    
+    if not titular:
+        return None
 
+    # Converte o titular para dicionário, incluindo dependentes
+    titular_data = titular.to_dict()
+    titular_data['dependentes'] = [dependente.to_dict() for dependente in titular.dependente]
 
+    return titular_data
 def get_client_by_cpf(cpf):
     client = Titular.query.get_or_404(cpf)
     return client.to_dict()

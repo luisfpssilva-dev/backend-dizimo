@@ -28,7 +28,9 @@ class UserLogin(Resource):
         try:
             user = authenticate_user(data['username'], data['password'])
             access_token = create_access_token(identity=user['id'])
-            return make_response(jsonify(token=access_token), 200)
+            
+            # Retorna o token e o ID do usuário no login
+            return make_response(jsonify(token=access_token, user_id=user['id']), 200)
         except ValueError as e:
             return make_response(jsonify({'message': str(e)}), 400)
 

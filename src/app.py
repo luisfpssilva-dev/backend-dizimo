@@ -35,12 +35,14 @@ from src.routes.payment_routes import initialize_payment_routes
 from src.routes.titular_routes import initialize_routes_titular
 from src.routes.protected_route import initialize_protected_routes
 from src.routes.comunidade_route import initialize_routes_comunidade
+from src.routes.dependentes_routes import initialize_routes_dependente
 
 initialize_user_routes(api)
 initialize_payment_routes(api)
 initialize_routes_titular(api)
 initialize_protected_routes(api)
 initialize_routes_comunidade(api)
+initialize_routes_dependente(api)
 
 @app.errorhandler(Exception)
 def handle_exception(e):

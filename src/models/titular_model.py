@@ -22,7 +22,7 @@ class TitularModel(db.Model):
     comunidade_id = db.Column(db.String(32), db.ForeignKey('comunidade.comunidade_id'), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     endereco = db.relationship('EnderecoModel', backref='titular')
-    dependente = db.relationship('DependenteModel', backref='titular')
+    dependente = db.relationship('DependenteModel', backref='titular_relation')
     payments = db.relationship('Payment', backref='titular')
 
     def to_dict(self):
@@ -93,6 +93,5 @@ class DependenteModel(db.Model):
             'sexo': self.sexo,
             'titular_id': self.titular_id,
             'tipo_dependente': self.tipo_dependente,
-            'updated_at': self.updated_at,
-            'titular_relation': self.titular_relation.to_dict() if self.titular_relation else None
+            'updated_at': self.updated_at.strftime('%Y-%m-%d %H:%M:%S')
         }

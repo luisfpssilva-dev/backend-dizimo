@@ -1,15 +1,23 @@
 from flask import request, jsonify
 from flask_restful import Resource
-from src.services.payment_service import get_all_payments, get_payment_by_id, create_payment, update_payment, delete_payment
+from src.services.payment_service import get_all_payments, get_payment_by_id, create_payment, get_payments_by_titular_id, update_payment, delete_payment
 
 class PaymentResource(Resource):
     def get(self, payment_id=None):
+        titular_id = request.args.get('titular_id')
+        
         if payment_id:
             payment = get_payment_by_id(payment_id)
             if payment:
                 return jsonify(payment)
             else:
                 return {'message': 'Payment not found'}, 404
+        elif titular_id:
+            payments = get_payments_by_titular_id(titular_id)
+            if payments:
+                return jsonify(payments)
+            else:
+                return {'message': 'No payments found for this titular_id'}, 404
         else:
             return jsonify(get_all_payments())
 

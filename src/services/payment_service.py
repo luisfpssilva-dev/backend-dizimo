@@ -54,3 +54,12 @@ def delete_payment(payment_id):
         return True
     else:
         return False
+
+
+def get_payments_by_titular_id(titular_id):
+    try:
+        payments = Payment.query.filter_by(titular_id=titular_id).all()
+        return [payment.to_dict() for payment in payments]
+    except Exception as e:
+        print(f"Error fetching payments by titular_id {titular_id}: {e}")
+        return None

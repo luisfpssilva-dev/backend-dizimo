@@ -38,7 +38,7 @@ def create_titular(data):
     new_titular = Titular(
         titular_id = str(uuid.uuid4()),
         numero_dizimista=data['numero_dizimista'],
-        name=data['nome'],
+        name=data['name'],
         telefone=data['telefone'],
         sexo=data['sexo'],
         data_nascimento = datetime.strptime(data['data_nascimento'], '%Y-%m-%d').date(),
@@ -55,7 +55,7 @@ def create_titular(data):
 
 def update_client(titular_id, data):
     client = Titular.query.get_or_404(titular_id)
-    client.nome = data['nome']
+    client.name = data['name']
     client.email = data['email']
     client.telefone = data['telefone']
     db.session.commit()

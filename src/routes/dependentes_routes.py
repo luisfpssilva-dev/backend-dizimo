@@ -1,13 +1,14 @@
 
 from flask import request
 from flask_restful import Resource
-from src.services.dependentes_service import delete_dependente, get_all_dependentes, get_dependente_by_id, create_dependente, update_dependente
+from src.services.dependentes_service import delete_dependente, get_all_dependentes, create_dependente, get_dependentes_by_titular_id, update_dependente
 class DependenteResource(Resource):
     def get(self, dependente_id=None):
         if dependente_id:
-            dependente = get_dependente_by_id(dependente_id)
+            dependente = get_dependentes_by_titular_id(dependente_id)
             if dependente:
-                return dependente.to_dict(), 200
+                return [dep.to_dict() for dep in dependente], 200
+
             else:
                 return {"message": "Dependente não encontrado"}, 404
         else:

@@ -3,8 +3,9 @@ from src.models import DependenteModel
 from src.db import db
 
 
-def get_dependente_by_id(dependente_id):
-    return DependenteModel.query.get(dependente_id)
+def get_dependentes_by_titular_id(titular_id):
+    dependentes = DependenteModel.query.filter_by(titular_id=titular_id).all()
+    return dependentes
 
 def get_all_dependentes():
     return DependenteModel.query.all()

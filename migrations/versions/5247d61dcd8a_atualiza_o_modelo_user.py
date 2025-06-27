@@ -37,7 +37,7 @@ def upgrade():
     sa.Column('titular_id', sa.String(length=32), nullable=False),
     sa.Column('numero_dizimista', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=80), nullable=False),
-    sa.Column('data_nascimento', sa.DateTime(), nullable=False),
+    sa.Column('data_nascimento', sa.Date(), nullable=False),
     sa.Column('sexo', sa.String(length=32), nullable=False),
     sa.Column('cpf', sa.String(length=80), nullable=False),
     sa.Column('email', sa.String(length=120), nullable=False),
@@ -76,14 +76,18 @@ def upgrade():
     sa.PrimaryKeyConstraint('endereco_id')
     )
     op.create_table('payments',
-    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('id_payment', sa.String(length=32), nullable=False),
     sa.Column('amount', sa.Float(), nullable=False),
-    sa.Column('date', sa.DateTime(), nullable=True),
+    sa.Column('description', sa.String(), nullable=True),
+    sa.Column('status', sa.String(), nullable=True),
+    sa.Column('due_date', sa.DateTime(), nullable=True),
+    sa.Column('payment_date', sa.DateTime(), nullable=True),
+    sa.Column('date_created', sa.DateTime(), nullable=True),
     sa.Column('titular_id', sa.String(length=32), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['titular_id'], ['titular.titular_id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('id')
+    sa.PrimaryKeyConstraint('id_payment')
     )
     # ### end Alembic commands ###
 

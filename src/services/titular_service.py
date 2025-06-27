@@ -66,3 +66,11 @@ def delete_client(titular_id):
     db.session.delete(client)
     db.session.commit()
     return '', 204
+
+def client_next_id():
+    ids_existentes = Titular.query(Titular.numero_dizimista).order_by(Titular.numero_dizimista).all()
+    ids_usados = set(id[0] for id in ids_existentes)
+
+    for i in range(1, 10000):
+        if i not in ids_usados:
+            return i

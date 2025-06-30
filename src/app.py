@@ -7,6 +7,16 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 from flask_migrate import Migrate
 
+from src.routes.user_route import initialize_user_routes
+from src.routes.payment_routes import initialize_payment_routes
+from src.routes.titular_routes import initialize_routes_titular
+from src.routes.protected_route import initialize_protected_routes
+from src.routes.comunidade_route import initialize_routes_comunidade
+from src.routes.dependentes_routes import initialize_routes_dependente
+from src.routes.id_routes import initialize_routes_id
+from src.db import db
+
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 load_dotenv()
@@ -19,8 +29,6 @@ app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY', 'your_jwt_secret_key'
 
 CORS(app)
 
-from src.db import db
-
 db.init_app(app)
 
 migrate = Migrate(app, db)
@@ -28,25 +36,13 @@ migrate = Migrate(app, db)
 jwt = JWTManager(app)
 api = Api(app)
 
-from src.models import User, Payment, TitularModel, ComunidadeModel, EnderecoModel, DependenteModel
-
-from src.routes.user_route import initialize_user_routes
-from src.routes.payment_routes import initialize_payment_routes
-from src.routes.titular_routes import initialize_routes_titular
-from src.routes.protected_route import initialize_protected_routes
-from src.routes.comunidade_route import initialize_routes_comunidade
-from src.routes.dependentes_routes import initialize_routes_dependente
-from src.routes.proximo_id_routes import initialize_routes_proximo_id
-
-
-
 initialize_user_routes(api)
 initialize_payment_routes(api)
 initialize_routes_titular(api)
 initialize_protected_routes(api)
 initialize_routes_comunidade(api)
 initialize_routes_dependente(api)
-initialize_routes_proximo_id(api)
+initialize_routes_id(api)
 
 @app.errorhandler(Exception)
 def handle_exception(e):

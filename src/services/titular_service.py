@@ -25,20 +25,24 @@ def get_client_by_id(titular_id):
     titular_data['dependentes'] = [dependente.to_dict() for dependente in titular.dependente]
 
     return titular_data
+
+
 def get_client_by_cpf(cpf):
     client = Titular.query.get_or_404(cpf)
     return client.to_dict()
 
 
 def get_client_by_numero_dizimista(numero_dizimista):
-    client = Titular.query.get_or_404(numero_dizimista)
+    client = Titular.query.filter(Titular.numero_dizimista == numero_dizimista,
+                                  Titular.deleted_at.is_(None)).first()
+    if not client:
+        return None
     return client.to_dict()
 
 
 def create_titular(data):
     new_titular = Titular(
         titular_id = str(uuid.uuid4()),
-        # numero_dizimista = random.randint(1,100),
         numero_dizimista=data['numero_dizimista'],
         name=data['name'],
         telefone=data['telefone'],

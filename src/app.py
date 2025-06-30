@@ -36,6 +36,9 @@ from src.routes.titular_routes import initialize_routes_titular
 from src.routes.protected_route import initialize_protected_routes
 from src.routes.comunidade_route import initialize_routes_comunidade
 from src.routes.dependentes_routes import initialize_routes_dependente
+from src.routes.proximo_id_routes import initialize_routes_proximo_id
+
+
 
 initialize_user_routes(api)
 initialize_payment_routes(api)
@@ -43,6 +46,7 @@ initialize_routes_titular(api)
 initialize_protected_routes(api)
 initialize_routes_comunidade(api)
 initialize_routes_dependente(api)
+initialize_routes_proximo_id(api)
 
 @app.errorhandler(Exception)
 def handle_exception(e):

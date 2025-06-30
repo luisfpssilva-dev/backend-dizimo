@@ -2,6 +2,7 @@ from src.models import TitularModel as Titular
 from datetime import datetime
 from src.db import db
 import uuid
+import random
 
 
 def get_all_clients():
@@ -37,6 +38,7 @@ def get_client_by_numero_dizimista(numero_dizimista):
 def create_titular(data):
     new_titular = Titular(
         titular_id = str(uuid.uuid4()),
+        # numero_dizimista = random.randint(1,100),
         numero_dizimista=data['numero_dizimista'],
         name=data['name'],
         telefone=data['telefone'],
@@ -49,7 +51,7 @@ def create_titular(data):
     )
     db.session.add(new_titular)
     db.session.commit()
-    #TODO lista_numeros_dizimista[1:1000] numeros_usados_ordenados[1,2,100,300] numeros_que_podemos_usar[diferenca entre eles]
+    #TODO VERIFICAR SE O ID ADICIONADO MAUNALMENTE JÁ EXISTE
     #TODO fazer verificacao de numero de dizimista e cpf
     return new_titular.to_dict()
 
@@ -68,7 +70,11 @@ def delete_client(titular_id):
     return '', 204
 
 def client_next_id():
-    ids_existentes = Titular.query(Titular.numero_dizimista).order_by(Titular.numero_dizimista).all()
+    ids_existentes = (
+        Titular.query.with_entities(Titular.numero_dizimista)
+        .order_by(Titular.numero_dizimista)
+        .all()
+    )
     ids_usados = set(id[0] for id in ids_existentes)
 
     for i in range(1, 10000):
